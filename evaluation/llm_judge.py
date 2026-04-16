@@ -1,8 +1,6 @@
 """
-llm_judge.py
-------------
 LLM-as-a-Judge for Metric 2: Tone Accuracy Score (TAS).
-Uses google-genai SDK (v1 endpoint).
+Uses OpenAI SDK mapped to Nvidia endpoint.
 """
 
 import re
@@ -92,11 +90,8 @@ def judge_tone_accuracy(email_text: str, tone: str, retries: int = 5) -> dict:
             return {"score": 5, "reason": "Could not parse judge response"}
 
         except Exception as e:
-            err_str = str(e)
             if attempt < retries - 1:
                 wait = 3 * (attempt + 1)
-                print(f"    [WARN] Judge API error on attempt {attempt + 1}: retrying in {wait}s...")
                 time.sleep(wait)
             else:
-                print(f"    [ERROR] Judge failed after all retries: {e}")
-                return {"score": 5, "reason": f"Error: {e}"}
+                raise RuntimeError(f"Judge failed after all retries: {e}") from e

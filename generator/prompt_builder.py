@@ -1,6 +1,4 @@
 """
-prompt_builder.py
------------------
 Advanced prompt engineering using a Hybrid Role-Playing + Few-Shot technique.
 
 The strategy:

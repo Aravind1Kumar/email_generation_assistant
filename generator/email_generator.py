@@ -1,11 +1,6 @@
 """
-email_generator.py
-------------------
-Handles LLM API calls for both Model A and Model B using the google-genai SDK.
-
-Model A: gemini-1.5-flash + Advanced Role-Playing + Few-Shot prompt
-Model B: gemini-1.5-flash + Minimal baseline prompt
-         (same model, different strategy — isolates prompt engineering impact)
+Handles LLM API calls for both Model A and Model B using the OpenAI SDK.
+Isolates prompt engineering impact by running different templates against the same model.
 """
 
 import os
@@ -57,14 +52,11 @@ def _call_gemini(model_name: str, system_prompt: str, user_prompt: str, retries:
             return (content or "").strip()
 
         except Exception as e:
-            err_str = str(e)
             if attempt < retries - 1:
                 wait = 3 * (attempt + 1)
-                print(f"    [WARN] API error on attempt {attempt + 1}: retrying in {wait}s...")
                 time.sleep(wait)
             else:
-                print(f"    [ERROR] All retries exhausted for {model_name}: {e}")
-                return f"ERROR: {e}"
+                raise RuntimeError(f"All retries exhausted for {model_name}. Underlying error: {e}") from e
 
 
 def generate_model_a(intent: str, key_facts: list[str], tone: str) -> str:

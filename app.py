@@ -1,6 +1,4 @@
 """
-app.py
-------
 Interactive Gradio demo UI for the Email Generation Assistant.
 
 Usage:

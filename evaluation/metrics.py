@@ -1,9 +1,6 @@
 """
-metrics.py
-----------
 Three custom evaluation metrics for the Email Generation Assistant.
 
-─────────────────────────────────────────────────────────────────────────────
 METRIC 1: Fact Recall Score (FRS)
   Type    : Automated (NLP token overlap)
   Range   : 0–100 (percentage)
@@ -12,19 +9,17 @@ METRIC 1: Fact Recall Score (FRS)
   Logic   : For each Key Fact string:
               1. Tokenize into meaningful words (lowercase, strip punctuation,
                  remove stopwords).
-              2. Check if ≥60% of the fact's tokens appear in the email text.
+              2. Check if >=60% of the fact's tokens appear in the email text.
               3. FRS = (facts_matched / total_facts) × 100
 
-─────────────────────────────────────────────────────────────────────────────
 METRIC 2: Tone Accuracy Score (TAS)
   Type    : LLM-as-a-Judge
   Range   : 1–10
   Focus   : Does the email's style match the requested tone?
 
-  Logic   : A Gemini call rates the email 1–10 against the requested tone.
+  Logic   : An LLM call rates the email 1–10 against the requested tone.
             See evaluation/llm_judge.py for the full judge prompt.
 
-─────────────────────────────────────────────────────────────────────────────
 METRIC 3: Fluency & Clarity Score (FCS)
   Type    : Automated (grammar checker + readability formula)
   Range   : 0–10
@@ -34,10 +29,9 @@ METRIC 3: Fluency & Clarity Score (FCS)
     - Grammar (0–10): 10 − min(grammar_errors, 10) via language_tool_python
     - Readability (0–10): Flesch Reading Ease mapped to 0–10.
         Professional emails target a Flesch score of 40–70.
-        - ease ≥ 70  → 10 (very easy, clear)
+        - ease >= 70  → 10 (very easy, clear)
         - ease 40–70 → linearly scaled 5–10
         - ease < 40  → linearly scaled 0–5 (too complex)
-─────────────────────────────────────────────────────────────────────────────
 """
 
 import re

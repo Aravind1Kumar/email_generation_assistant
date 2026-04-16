@@ -1,11 +1,9 @@
 """
-evaluator.py
-------------
 Orchestrates the full evaluation pipeline.
 
 For each of the 10 test scenarios:
-  1. Generate an email with Model A (gemini-2.0-flash, Advanced Prompt)
-  2. Generate an email with Model B (gemini-1.5-pro, Baseline Prompt)
+  1. Generate an email with Model A (z-ai/glm4.7, Advanced Prompt)
+  2. Generate an email with Model B (z-ai/glm4.7, Baseline Prompt)
   3. Score both emails on all 3 custom metrics
   4. Collect and return all results
 """
