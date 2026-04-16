@@ -19,6 +19,8 @@ import sys
 from datetime import datetime
 from dotenv import load_dotenv
 
+from generator.prompt_builder import SYSTEM_PROMPT, ADVANCED_PROMPT_TEMPLATE, FEW_SHOT_EXAMPLES
+
 load_dotenv()
 
 # Validate API key before doing anything
@@ -196,6 +198,22 @@ Additionally, `z-ai/glm4.7` paired with an advanced prompting logic outperforms 
 | **Fact Recall Score (FRS)** | Automated NLP | 0–100% | Token overlap between key facts and email text. Fact recalled if ≥60% of its tokens appear. |
 | **Tone Accuracy Score (TAS)** | LLM-as-a-Judge | 1–10 | An LLM judge rates the email 1–10 against the requested tone with a one-sentence justification. |
 | **Fluency & Clarity Score (FCS)** | Automated | 0–10 | Average of Grammar score (10 − error_count) and Readability score (Flesch ease → 0–10). |
+
+---
+
+## The Prompt Template Used
+
+*This is the exact prompt used for the Model A (Advanced Prompt) generation.*
+
+**System Prompt (Role-Playing):**
+```text
+{SYSTEM_PROMPT}
+```
+
+**User Prompt Template (Structured Output + Few-Shot):**
+```text
+{ADVANCED_PROMPT_TEMPLATE.replace("{few_shot_examples}", FEW_SHOT_EXAMPLES)}
+```
 """
 
     path = os.path.join(REPORTS_DIR, "final_analysis.md")
