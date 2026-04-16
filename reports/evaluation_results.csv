@@ -1,0 +1,23 @@
+model,scenario_id,intent,tone,frs_fact_recall_pct,tas_tone_accuracy_1_10,fcs_fluency_clarity_0_10
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),1,Follow up after a job interview,Professional,0.0,1,5.21
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),2,Request proposal details from a vendor,Formal,0.0,10,7.01
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),3,Apologize for missing a project deadline,Empathetic,0.0,1,5.0
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),4,Introduce a new team member to the company,Friendly,0.0,1,5.0
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),5,Decline a meeting invitation politely,Diplomatic,75.0,9,7.41
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),6,Request a salary review from a manager,Confident,0.0,1,5.0
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),7,Follow up on an unpaid invoice,Firm and Urgent,0.0,1,5.0
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),8,Thank a client after completing a project,Warm and Grateful,0.0,1,5.0
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),9,Pitch a product to a potential client,Persuasive,0.0,1,5.0
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),10,Escalate an unresolved customer support issue,Urgent and Assertive,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),1,Follow up after a job interview,Professional,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),2,Request proposal details from a vendor,Formal,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),3,Apologize for missing a project deadline,Empathetic,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),4,Introduce a new team member to the company,Friendly,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),5,Decline a meeting invitation politely,Diplomatic,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),6,Request a salary review from a manager,Confident,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),7,Follow up on an unpaid invoice,Firm and Urgent,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),8,Thank a client after completing a project,Warm and Grateful,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),9,Pitch a product to a potential client,Persuasive,0.0,1,5.0
+z-ai/glm4.7 (Baseline Prompt: Minimal),10,Escalate an unresolved customer support issue,Urgent and Assertive,0.0,1,5.0
+z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot),AVERAGE,—,—,7.5,2.7,5.46
+z-ai/glm4.7 (Baseline Prompt: Minimal),AVERAGE,—,—,0.0,1.0,5.0

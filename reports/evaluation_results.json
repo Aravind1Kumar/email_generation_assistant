@@ -1,0 +1,1132 @@
+{
+  "metric_definitions": {
+    "FRS": {
+      "name": "Fact Recall Score",
+      "range": "0–100 (%)",
+      "type": "Automated NLP token overlap",
+      "logic": "Tokenize each Key Fact and the generated email. A fact is 'recalled' if ≥60% of its key tokens appear in the email. Score = (recalled_facts / total_facts) × 100."
+    },
+    "TAS": {
+      "name": "Tone Accuracy Score",
+      "range": "1–10",
+      "type": "LLM-as-a-Judge (Gemini)",
+      "logic": "A Gemini judge is prompted with the email and requested tone. It returns a 1–10 integer score with a one-sentence justification."
+    },
+    "FCS": {
+      "name": "Fluency & Clarity Score",
+      "range": "0–10",
+      "type": "Automated (grammar checker + Flesch Reading Ease)",
+      "logic": "Average of: (1) Grammar score = max(0, 10 − error_count). (2) Readability score = Flesch Reading Ease mapped to 0–10, targeting professional range of 40–70."
+    }
+  },
+  "model_a": {
+    "name": "z-ai/glm4.7 (Advanced Prompt: Role + Few-Shot)",
+    "scenarios": [
+      {
+        "scenario_id": 1,
+        "intent": "Follow up after a job interview",
+        "tone": "Professional",
+        "generated_email": "Subject: Follow-Up: Product Manager Interview – [Your",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.21,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Interviewed on Tuesday for the Product Manager role at Axiom Labs",
+                "matched": false,
+                "overlap_ratio": 0.286
+              },
+              {
+                "fact": "Discussed roadmap planning using the OKR framework",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Available to start within two weeks",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Interviewer was Sarah Chen, Head of Product",
+                "matched": false,
+                "overlap_ratio": 0.2
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is incomplete and contains a placeholder, making it impossible to evaluate its professionalism."
+          },
+          "fluency_clarity": {
+            "score": 5.21,
+            "grammar_score": 10.0,
+            "readability_score": 0.42,
+            "grammar_errors": 0,
+            "flesch_ease": 3.34
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.21
+          }
+        }
+      },
+      {
+        "scenario_id": 2,
+        "intent": "Request proposal details from a vendor",
+        "tone": "Formal",
+        "generated_email": "Subject: Request for Proposal – Enterprise Cloud Storage Lic",
+        "frs": 0.0,
+        "tas": 10,
+        "fcs": 7.01,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Vendor is CloudNest Solutions",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Requesting pricing for 200 cloud storage licenses (Enterprise tier)",
+                "matched": false,
+                "overlap_ratio": 0.375
+              },
+              {
+                "fact": "Need SLA documentation and onboarding timeline",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Proposal deadline is June 15th",
+                "matched": false,
+                "overlap_ratio": 0.25
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 10,
+            "reason": "The subject line utilizes professional terminology and standard business formatting, perfectly aligning with a formal tone."
+          },
+          "fluency_clarity": {
+            "score": 7.01,
+            "grammar_score": 9.0,
+            "readability_score": 5.02,
+            "grammar_errors": 1,
+            "flesch_ease": 40.09
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 10,
+            "fcs": 7.01
+          }
+        }
+      },
+      {
+        "scenario_id": 3,
+        "intent": "Apologize for missing a project deadline",
+        "tone": "Empathetic",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "The Q3 financial report was due last Friday",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Delay caused by unexpected data migration issues",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Report will be delivered by Wednesday EOD",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Steps taken to prevent recurrence: added automated data validation checks",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any empathy or establish a connection with the recipient."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 4,
+        "intent": "Introduce a new team member to the company",
+        "tone": "Friendly",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "New hire is Priya Sharma, joining as Lead UX Designer",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "She starts on Monday, April 21st",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Comes from a background at Flipkart and Zomato",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "She will be based in the Bangalore office",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any tone, let alone a friendly one."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 5,
+        "intent": "Decline a meeting invitation politely",
+        "tone": "Diplomatic",
+        "generated_email": "Subject: Declining Invitation: AI Ethics Panel Discussion\n\nDear [Organizer's Name],\n\nThank you for inviting me to participate in the Thursday panel discussion on AI Ethics. Unfortunately, I am unable to attend due to a prior client commitment.\n\nI remain very interested in the topic and would be happy to share my written thoughts on the subject instead. Additionally, I am available for a follow",
+        "frs": 75.0,
+        "tas": 9,
+        "fcs": 7.41,
+        "detail": {
+          "fact_recall": {
+            "score": 75.0,
+            "facts_matched": 3,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Meeting is the Thursday panel discussion on AI Ethics",
+                "matched": true,
+                "overlap_ratio": 0.833
+              },
+              {
+                "fact": "Unable to attend due to a prior client commitment",
+                "matched": true,
+                "overlap_ratio": 1.0
+              },
+              {
+                "fact": "Happy to share written thoughts on the topic instead",
+                "matched": true,
+                "overlap_ratio": 1.0
+              },
+              {
+                "fact": "Available for a follow-up call the following week",
+                "matched": false,
+                "overlap_ratio": 0.2
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 9,
+            "reason": "The email is polite and professional, offering a constructive alternative to soften the refusal, though it is cut off mid-sentence."
+          },
+          "fluency_clarity": {
+            "score": 7.41,
+            "grammar_score": 10.0,
+            "readability_score": 4.82,
+            "grammar_errors": 0,
+            "flesch_ease": 38.58
+          },
+          "summary": {
+            "frs": 75.0,
+            "tas": 9,
+            "fcs": 7.41
+          }
+        }
+      },
+      {
+        "scenario_id": 6,
+        "intent": "Request a salary review from a manager",
+        "tone": "Confident",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Have been in the current role for 2.5 years without a salary adjustment",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Successfully led the migration to AWS, saving the company $120,000 annually",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Current salary is below the market median for this role based on industry surveys",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Requesting a 15% increase",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any tone, let alone confidence."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 7,
+        "intent": "Follow up on an unpaid invoice",
+        "tone": "Firm and Urgent",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Invoice #INV-2024-089 for $4,750 was due on March 31st",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Two previous reminders sent on April 5th and April 12th",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Payment must be received by April 20th to avoid a 2% late fee",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Client is Meridian Consulting",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is empty and therefore cannot convey any tone, let alone one that is firm and urgent."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 8,
+        "intent": "Thank a client after completing a project",
+        "tone": "Warm and Grateful",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Project was the redesign of Vertex Corp's e-commerce platform",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Project completed 1 week ahead of schedule",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Client's team was collaborative and responsive throughout",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Hopeful for a long-term partnership",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is empty and therefore conveys no warmth or gratitude."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 9,
+        "intent": "Pitch a product to a potential client",
+        "tone": "Persuasive",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Product is DataPulse — an AI-powered analytics dashboard",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Reduces reporting time by 60% on average",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Used by over 300 companies including Fortune 500 firms",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Offering a free 30-day trial with no credit card required",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is empty and therefore cannot convey any persuasive message or tone."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 10,
+        "intent": "Escalate an unresolved customer support issue",
+        "tone": "Urgent and Assertive",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 5,
+            "detail": [
+              {
+                "fact": "Support ticket #TKT-55821 opened 12 days ago",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Issue: complete payment gateway failure on the production API",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Business is losing approximately $8,000 per day due to this outage",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Previous support agents provided no resolution",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Requesting escalation to a senior engineer immediately",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any sense of urgency or assertiveness."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      }
+    ],
+    "averages": {
+      "frs": 7.5,
+      "tas": 2.7,
+      "fcs": 5.46
+    }
+  },
+  "model_b": {
+    "name": "z-ai/glm4.7 (Baseline Prompt: Minimal)",
+    "scenarios": [
+      {
+        "scenario_id": 1,
+        "intent": "Follow up after a job interview",
+        "tone": "Professional",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Interviewed on Tuesday for the Product Manager role at Axiom Labs",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Discussed roadmap planning using the OKR framework",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Available to start within two weeks",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Interviewer was Sarah Chen, Head of Product",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to assess or achieve a professional tone."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 2,
+        "intent": "Request proposal details from a vendor",
+        "tone": "Formal",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Vendor is CloudNest Solutions",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Requesting pricing for 200 cloud storage licenses (Enterprise tier)",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Need SLA documentation and onboarding timeline",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Proposal deadline is June 15th",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email content is empty, making it impossible to evaluate or achieve any level of formality."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 3,
+        "intent": "Apologize for missing a project deadline",
+        "tone": "Empathetic",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "The Q3 financial report was due last Friday",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Delay caused by unexpected data migration issues",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Report will be delivered by Wednesday EOD",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Steps taken to prevent recurrence: added automated data validation checks",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is empty, making it impossible to convey any empathetic sentiment."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 4,
+        "intent": "Introduce a new team member to the company",
+        "tone": "Friendly",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "New hire is Priya Sharma, joining as Lead UX Designer",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "She starts on Monday, April 21st",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Comes from a background at Flipkart and Zomato",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "She will be based in the Bangalore office",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any tone, let alone a friendly one."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 5,
+        "intent": "Decline a meeting invitation politely",
+        "tone": "Diplomatic",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Meeting is the Thursday panel discussion on AI Ethics",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Unable to attend due to a prior client commitment",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Happy to share written thoughts on the topic instead",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Available for a follow-up call the following week",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is empty, making it impossible to assess or achieve a diplomatic tone."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 6,
+        "intent": "Request a salary review from a manager",
+        "tone": "Confident",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Have been in the current role for 2.5 years without a salary adjustment",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Successfully led the migration to AWS, saving the company $120,000 annually",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Current salary is below the market median for this role based on industry surveys",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Requesting a 15% increase",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any tone or message."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 7,
+        "intent": "Follow up on an unpaid invoice",
+        "tone": "Firm and Urgent",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Invoice #INV-2024-089 for $4,750 was due on March 31st",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Two previous reminders sent on April 5th and April 12th",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Payment must be received by April 20th to avoid a 2% late fee",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Client is Meridian Consulting",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any tone, let alone one that is firm and urgent."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 8,
+        "intent": "Thank a client after completing a project",
+        "tone": "Warm and Grateful",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Project was the redesign of Vertex Corp's e-commerce platform",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Project completed 1 week ahead of schedule",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Client's team was collaborative and responsive throughout",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Hopeful for a long-term partnership",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is empty, making it impossible to convey any warmth or gratitude."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 9,
+        "intent": "Pitch a product to a potential client",
+        "tone": "Persuasive",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 4,
+            "detail": [
+              {
+                "fact": "Product is DataPulse — an AI-powered analytics dashboard",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Reduces reporting time by 60% on average",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Used by over 300 companies including Fortune 500 firms",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Offering a free 30-day trial with no credit card required",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any persuasive message or tone."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      },
+      {
+        "scenario_id": 10,
+        "intent": "Escalate an unresolved customer support issue",
+        "tone": "Urgent and Assertive",
+        "generated_email": "",
+        "frs": 0.0,
+        "tas": 1,
+        "fcs": 5.0,
+        "detail": {
+          "fact_recall": {
+            "score": 0.0,
+            "facts_matched": 0,
+            "total_facts": 5,
+            "detail": [
+              {
+                "fact": "Support ticket #TKT-55821 opened 12 days ago",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Issue: complete payment gateway failure on the production API",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Business is losing approximately $8,000 per day due to this outage",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Previous support agents provided no resolution",
+                "matched": false,
+                "overlap_ratio": 0.0
+              },
+              {
+                "fact": "Requesting escalation to a senior engineer immediately",
+                "matched": false,
+                "overlap_ratio": 0.0
+              }
+            ]
+          },
+          "tone_accuracy": {
+            "score": 1,
+            "reason": "The email is completely empty, making it impossible to convey any sense of urgency or assertiveness."
+          },
+          "fluency_clarity": {
+            "score": 5.0,
+            "grammar_score": 10.0,
+            "readability_score": 0.0,
+            "grammar_errors": 0,
+            "flesch_ease": 0.0
+          },
+          "summary": {
+            "frs": 0.0,
+            "tas": 1,
+            "fcs": 5.0
+          }
+        }
+      }
+    ],
+    "averages": {
+      "frs": 0.0,
+      "tas": 1.0,
+      "fcs": 5.0
+    }
+  }
+}
